@@ -80,6 +80,7 @@ EOF
 ```
 配置docker镜像加速
 ```
+[root@master01 ~]# mkdir -p   /etc/docker/
 [root@master01 ~]# cat /etc/docker/daemon.json 
 {"registry-mirrors": [
     "https://registry.docker-cn.com",
