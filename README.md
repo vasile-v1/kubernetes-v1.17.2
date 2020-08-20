@@ -194,6 +194,50 @@ k8smaster01   Ready    master   6h46m   v1.17.2
 ```
 [root@node02 ~]# kubeadm join 192.168.10.246:6443 --token jtnq2z.ii4uwh7gzfesuddi \
   --discovery-token-ca-cert-hash sha256:b2ec56033ce03f1aa033f10fd80ec9c0beaec1d12b999dab3343489e0e912e46 
+#默认token 过期时间为24 小时
 ```
 
+### 修改kub-proxy 为ipvs 模式
+```
+[root@master01 ~]# kubectl get  cm -n kube-system  kube-proxy  -o yaml 
+data.config.conf.mode: "ipvs" #将mode 设置为ipvs，并删除kubelet pod
+```
 
+### 部署kuubernetes dashboard
+```
+#github项目地址 https://github.com/kubernetes/dashboard
+[root@master01 ~]# kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.3/aio/deploy/recommended.yaml
+```
+```
+[root@master01 ~]# kubectl get po -n kubernetes-dashboard 
+NAME                                        READY   STATUS    RESTARTS   AGE
+dashboard-metrics-scraper-c79c65bb7-p2c7r   1/1     Running   0          37h
+kubernetes-dashboard-55fd8c78bd-rf9rv       1/1     Running   0          37h
+[root@master01 ~]# kubectl get svc -n kubernetes-dashboard    
+NAME                        TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)         AGE
+dashboard-metrics-scraper   ClusterIP   10.199.104.101   <none>        8000/TCP        37h
+kubernetes-dashboard        NodePort    10.199.111.223   <none>        443:30848/TCP   37h
+#注意修改 service kubernetes-dashboard type 为Nodeport
+```
+获取登录token
+```
+[root@master01 ~]# kubectl -n kubernetes-dashboard describe secret $(kubectl -n kubernetes-dashboard get secret | grep admin-user | awk '{print $1}')
+```
+
+### 部署ingress-nginx
+项目地址 https://kubernetes.github.io/ingress-nginx/
+下面部署的是ingress-nginx 为版本v0.34.1 
+```
+[root@master01 ~]# wget https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v0.34.1/deploy/static/provider/cloud/deploy.yaml
+```
+
+### 部署kube-Prometheus
+githuba 项目地址：https://github.com/prometheus-operator/kube-prometheus
+```
+kubectl create -f manifests/setup
+kubectl create -f manifests/
+```
+### 注意事项
+```
+上面步骤很多docker 镜像是官方地址，很多镜像下载很慢或者无法下载。
+```
