@@ -136,7 +136,7 @@ kubelet.x86_64                       1.17.0-0                        kubernetes
 [root@master01 ~]# docker rmi registry.cn-hangzhou.aliyuncs.com/google_containers/kube-scheduler:v1.17.2
 [root@master01 ~]# docker rmi registry.cn-hangzhou.aliyuncs.com/google_containers/kube-proxy:v1.17.2
 [root@master01 ~]# docker rmi registry.cn-hangzhou.aliyuncs.com/google_containers/pause:3.1
-[root@master01 ~]# docker rmi registry.cn-hangzhou.aliyuncs.com/google_containers/etcd:3.4.3
+[root@master01 ~]# docker rmi registry.cn-hangzhou.aliyuncs.com/google_containers/etcd:3.4.3-0
 [root@master01 ~]# docker rmi registry.cn-hangzhou.aliyuncs.com/google_containers/coredns:1.6.5
 ```
 * 初始化master
