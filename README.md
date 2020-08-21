@@ -168,7 +168,8 @@ k8smaster01   Ready    master   6h46m   v1.17.2
 ### master节点安装kubectl 命令自动补全
 ```
 [root@master01 ~]# yum -y install bash-completion
-[root@master01 ~]# source /etc/profile.d/bash_completion.sh
+[root@master01 ~]# source /usr/share/bash-completion/bash_completion
+[root@master01 ~]# source <(kubectl completion bash)
 ```
 
 ### 部署 calico
