@@ -181,6 +181,7 @@ k8smaster01   Ready    master   6h46m   v1.17.2
 ```
 [root@master01 ~]# curl  https://docs.projectcalico.org/manifests/custom-resources.yaml -o calico-resources.yaml
 # 注意修改calico-resources.yaml 中的cidr 网段和前面配置一致
+[root@master01 ~]# kubectl create -f calico-resources.yaml
 ```
 
 ### 注册节点服务器
@@ -230,6 +231,8 @@ kubernetes-dashboard        NodePort    10.199.111.223   <none>        443:30848
 下面部署的是ingress-nginx 为版本v0.34.1 
 ```
 [root@master01 ~]# wget https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v0.34.1/deploy/static/provider/cloud/deploy.yaml
+#替换image: us.gcr.io/k8s-artifacts-prod/ingress-nginx/controller:v0.34.1@sha256:0e072dddd1f7f8fc8909a2ca6f65e76c5f0d2fcfb8be47935ae3457e8bbceb20 为
+registry.cn-beijing.aliyuncs.com/diablowu/ingress-nginx-controller:v0.34.1
 ```
 
 ### 部署kube-Prometheus
