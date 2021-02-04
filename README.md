@@ -197,6 +197,10 @@ k8smaster01   Ready    master   6h46m   v1.17.2
 [root@node02 ~]# kubeadm join 192.168.10.246:6443 --token jtnq2z.ii4uwh7gzfesuddi \
   --discovery-token-ca-cert-hash sha256:b2ec56033ce03f1aa033f10fd80ec9c0beaec1d12b999dab3343489e0e912e46 
 #默认token 过期时间为24 小时
+
+kubeadm token create
+openssl x509 -pubkey -in /etc/kubernetes/pki/ca.crt | openssl rsa -pubin -outform der 2>/dev/null | openssl dgst -sha256 -hex | sed  's/^ .* //'
+
 ```
 
 ### 修改kub-proxy 为ipvs 模式
